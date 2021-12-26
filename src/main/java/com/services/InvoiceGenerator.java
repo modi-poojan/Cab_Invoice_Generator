@@ -1,6 +1,9 @@
-package com.cabinvoice;
+package com.services;
 
-public class CalculateInvoice {
+import com.entities.EnhancedInvoice;
+import com.entities.Rides;
+
+public class InvoiceGenerator {
 
 	public static final double FARE_PER_KILOMETER = 10.0;
 	public static final double FARE_PER_MINUTE = 1;
@@ -14,12 +17,20 @@ public class CalculateInvoice {
 		return (totalFare);
 	}
 	
-	public double calculateFare(Rides[] rides) {
+	public EnhancedInvoice calculateFare(Rides[] rides) {
 		for (Rides r : rides) {
 			totalFare += calculateFare(r.distance,r.time);
 		}
 		if(totalFare < 5)
 			totalFare = 5;
-		return totalFare;
+		return new EnhancedInvoice(rides.length, totalFare , totalFare/rides.length);
 	}
+	
+	/*
+	 * public EnhancedInvoice invoice(Rides[] rides) { for (Rides r : rides) {
+	 * totalFare += calculateFare(r.distance,r.time); } if(totalFare < 5) totalFare
+	 * = 5;
+	 * 
+	 * }
+	 */
 }

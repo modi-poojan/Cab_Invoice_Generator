@@ -1,15 +1,16 @@
-package com.testinvoice;
-
+package com.test;
 import static org.junit.Assert.*;
 import static org.testng.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.cabinvoice.CalculateInvoice;
-import com.cabinvoice.Rides;
+import com.entities.EnhancedInvoice;
+import com.entities.Rides;
+import com.services.InvoiceGenerator;
+
 public class TestInvoice {
 
-		CalculateInvoice invoice = new CalculateInvoice();
+		InvoiceGenerator invoice = new InvoiceGenerator();
 		
 		@Test
 		public void validateInvoice_Regular() {
@@ -26,8 +27,9 @@ public class TestInvoice {
 		@Test
 		public void multipleRidesInvoice() {
 			Rides [] ride = {new Rides(5.4, 17),new Rides(1.7, 11)};
-			double output2 = invoice.calculateFare(ride);
-			assertEquals(99, output2);
+			EnhancedInvoice invoice1 = new EnhancedInvoice(2, 99, 49.5);
+			EnhancedInvoice output2 = invoice.calculateFare(ride);
+			assertEquals(invoice1, output2);
 		}
 	}
 
